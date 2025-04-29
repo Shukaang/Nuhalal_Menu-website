@@ -26,24 +26,27 @@ const MainMenu = () => {
       try {
         const dataSnapshot = await getDocs(menuCollectionRef);
         const items = dataSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
+  
         if (items.length === 0) {
           setError('No items found here!.');
         } else {
           setMenuItems(items);
           setFilteredItems(items);
         }
-
+  
         const categoriesSet = new Set(items.map(item => item.category));
         setCategories([...categoriesSet]);
       } catch (error) {
         console.error('Error fetching data:', error);
         setError('Failed to load menu items.');
+      } finally {
+        setLoading(false); 
       }
     };
-
-    fetchData();
+  
+    fetchData(); 
   }, []);
+  
 
   const filterItems = (category) => {
     const filtered = menuItems.filter(item => item.category === category);
@@ -106,11 +109,15 @@ const MainMenu = () => {
         </div>
 
         {/* Menu Items */}
-        {error ? (
-          <div className="text-center text-red-500 text-3xl font-semibold">{error}</div>
-        ) : (
-          <div className="w-fit mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 justify-items-center 
-          justify-center gap-5">
+        {loading ? (
+          <div className="flex justify-center items-center min-h-[40vh]">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-green-600"></div>
+          </div>
+          ) : error ? (
+            <div className="text-center text-red-500 text-3xl font-semibold">{error}</div>
+            ) : (
+              <div className="w-fit mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 justify-items-center justify-center gap-5">
+
             {filteredItemsMemo.length === 0 ? (
               <div className="text-center text-gray-500">No items found.</div>
               ) : (
@@ -120,6 +127,7 @@ const MainMenu = () => {
                     <img
                     src={item.imageUrl}
                     alt={item.name}
+                    loading= "lazy"
                     className="w-full h-32 object-cover rounded-md mb-3"
                     />
                     <div className="text-center">
