@@ -9,14 +9,14 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 const categories = [
   "All Items",
-  "Breakfast & Brunch",
-  "Burgers & Sandwiches",
-  "Pizza & Fast Foods",
+  "Breakfast",
+  "Burgers",
+  "Pizza",
   "Ethiopian Dishes",
   "Arabian Specials",
-  "Salads & Healthy Picks",
-  "Desserts & Sweets",
-  "Juices & Hot Drinks",
+  "Salads",
+  "Desserts",
+  "Beverages",
 ];
 
 export default function AdminDashboard() {
