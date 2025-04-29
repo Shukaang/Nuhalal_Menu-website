@@ -114,7 +114,7 @@ const MainMenu = () => {
               <div className="text-center text-gray-500">No items found.</div>
               ) : (
                 filteredItemsMemo.map((item) => (
-                  <div key={item.id} className="w-44 h-auto bg-gray-950 p-4 border-2 border-green-700 rounded-xl shadow-2xl 
+                  <div key={item.id} className="w-44 gap-5 h-auto bg-gray-950 p-4 border-2 border-green-700 rounded-xl shadow-2xl 
                   shadow-green-800 hover:shadow-lg transition">
                     <img
                     src={item.imageUrl}
