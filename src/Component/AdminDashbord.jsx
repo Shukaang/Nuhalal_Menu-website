@@ -1,7 +1,6 @@
 import { db } from '../firebase';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
-import { storage } from '../firebase';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { updateDoc, doc } from 'firebase/firestore';
 import { deleteDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
@@ -33,7 +32,6 @@ export default function AdminDashboard() {
     const [menuItems, setMenuItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [imageUrl, setImageUrl] = useState("");
-    const [imageFile, setImageFile] = useState(null);
     const [editingItem, setEditingItem] = useState(null);
   
     // Delete Confirmation Modal State
@@ -58,40 +56,26 @@ export default function AdminDashboard() {
     }, []);
   
     const handleAddItem = async (e) => {
-      e.preventDefault();
-      setLoading(true);
-    
-      try {
-        let imageUrlToSave = "";
-    
-        // Upload image if one was selected
-        if (imageFile) {
-          const storageRef = ref(storage, `menuImages/${imageFile.name}`);
-          await uploadBytes(storageRef, imageFile);
-          imageUrlToSave = await getDownloadURL(storageRef);
+        e.preventDefault();
+        setLoading(true);
+      
+        try {
+          await addDoc(collection(db, "menuItems"), {
+            ...newItem,
+            imageUrl: imageUrl, // save the pasted URL
+          });
+      
+          setNewItem({ name: "", price: "", category: "" });
+          setImageUrl("");
+          setShowAddForm(false);
+          fetchItems(); // don't forget to reload items after adding
+        } catch (error) {
+          console.error("Error adding item:", error);
+          alert("Something went wrong!");
         }
-    
-        await addDoc(collection(db, "menuItems"), {
-          name: newItem.name,
-          price: newItem.price,
-          category: newItem.category,
-          imageUrl: imageUrlToSave, // Save the Firebase Storage URL
-        });
-    
-        // Reset form
-        setNewItem({ name: "", price: "", category: "" });
-        setImageFile(null);
-        setImageUrl("");
-        setShowAddForm(false);
-        fetchItems();
-      } catch (error) {
-        console.error("Error adding item:", error);
-        alert("Something went wrong!");
-      }
-    
-      setLoading(false);
-    };
-    
+      
+        setLoading(false);
+      };
       
   
     const handleUpdateItem = async (e) => {
@@ -181,7 +165,7 @@ export default function AdminDashboard() {
           {/* Mobile Menu Button */}
           <button 
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="md:hidden mb-4 text-3xl cursor-pointer focus:outline-none"
+            className="md:hidden mb-4 text-3xl focus:outline-none"
           >
             ☰
           </button>
@@ -271,11 +255,12 @@ export default function AdminDashboard() {
           ))}
         </select>
         <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => setImageFile(e.target.files[0])}
+          type="text"
+          placeholder="Paste image URL here"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+          className="border p-2 rounded"
         />
-
 
         <div className="flex justify-end gap-4 mt-4">
           <button
