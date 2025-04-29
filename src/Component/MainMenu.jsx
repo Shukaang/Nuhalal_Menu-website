@@ -109,12 +109,13 @@ const MainMenu = () => {
         {error ? (
           <div className="text-center text-red-500 text-3xl font-semibold">{error}</div>
         ) : (
-          <div className="w-fit mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 justify-items-center justify-center gap-y-5 gap-x-5">
+          <div className="w-fit mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-3 justify-items-center 
+          justify-center gap-5">
             {filteredItemsMemo.length === 0 ? (
               <div className="text-center text-gray-500">No items found.</div>
               ) : (
                 filteredItemsMemo.map((item) => (
-                  <div key={item.id} className="w-44 sm:gap-x-5 bg-gray-950 p-4 border-2 border-green-700 rounded-xl shadow-2xl 
+                  <div key={item.id} className="w-44 bg-gray-950 p-4 border-2 border-green-700 rounded-xl shadow-2xl 
                   shadow-green-800 hover:shadow-lg transition">
                     <img
                     src={item.imageUrl}
