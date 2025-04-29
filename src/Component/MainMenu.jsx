@@ -65,7 +65,9 @@ const MainMenu = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Header Section */}
-      <div className="bg-[url('Menu-bg-Arabian.jpg')] bg-no-repeat bg-cover p-6 flex justify-between items-center">
+      <div className="bg-no-repeat bg-cover p-6 flex justify-between items-center"
+           style={{backgroundImage: "url('Menu-bg-Arabian.jpg')"}}
+      >
         <h1 className="text-4xl font-bold text-black menu-title">Nuhalal Menu</h1>
         <button className="bg-green-600 text-white font-bold px-6 py-2 rounded-lg shadow hover:bg-green-400 transition">
           Order Now
@@ -80,7 +82,8 @@ const MainMenu = () => {
             onClick={resetFilter}
             className="flex flex-col items-center cursor-pointer"
           >
-            <div className="w-24 h-14 bg-[url('BIG-BG.jpg')] bg-contain bg-no-repeat bg-center rounded-4xl flex items-center justify-center shadow-md" 
+            <div className="w-24 h-14 bg-contain bg-no-repeat bg-center rounded-4xl flex items-center justify-center shadow-md"
+                 style={{ backgroundImage: "url('BIG-BG.jpg')" }}
                 >
             </div>
             <p className="mt-2 text-sm font-medium">All Menu</p>
