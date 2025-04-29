@@ -122,6 +122,7 @@ const MainMenu = () => {
                     className="w-full h-32 object-cover rounded-md mb-3"
                     />
                     <div className="text-center">
+                    <h2 className="font-bold text-amber-600 text-lg">{item.name}</h2>
                       <p className="text-white font-semibold mt-1">{item.price} ETB</p>
                       </div>
                     </div>
