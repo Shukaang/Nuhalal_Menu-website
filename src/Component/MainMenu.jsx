@@ -109,7 +109,7 @@ const MainMenu = () => {
         {error ? (
           <div className="text-center text-red-500 text-3xl font-semibold">{error}</div>
         ) : (
-          <div className="flex flex-wrap justify-center items-center gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 justify-center">
             {filteredItemsMemo.length === 0 ? (
               <div className="text-center text-gray-500">No items found.</div>
               ) : (
