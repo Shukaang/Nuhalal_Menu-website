@@ -6,7 +6,6 @@ import { deleteDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { FaHome, FaUtensils, FaBirthdayCake, FaGlassMartiniAlt } from "react-icons/fa";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-import { signOut } from 'firebase/auth';
 
 const categories = [
   "All Items",
@@ -127,7 +126,7 @@ export default function AdminDashboard() {
       ? menuItems
       : menuItems.filter(item => item.category === selectedCategory);
 
-      // Handle Logout
+      //Logout Handle
       const handleLogout = () => signOut(auth);
   
     return (
@@ -367,10 +366,6 @@ export default function AdminDashboard() {
               </div>
             </div>
           )}
-          <button onClick={handleLogout} className="logout-button">
-            Logout
-          </button>
-
         </main>
       </div>
     );
