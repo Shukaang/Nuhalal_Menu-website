@@ -66,7 +66,7 @@ const MainMenu = () => {
   
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen w-full">
       {/* Header Section */}
       <div className="bg-no-repeat bg-cover p-6 flex justify-between items-center"
            style={{backgroundImage: "url('Menu-bg-Arabian.jpg')"}}
@@ -80,8 +80,8 @@ const MainMenu = () => {
       {/* Categories + Menu Items Section */}
       <div className="flex-1 p-6" style={{ backgroundImage: "url('BIG-BG.jpg')" }}>
         {/* Categories */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-        <div
+        <div className="flex flex-wrap justify-center gap-4 lg:mt-5 mb-8">
+          <div
             onClick={resetFilter}
             className="flex flex-col items-center cursor-pointer"
           >
@@ -98,7 +98,7 @@ const MainMenu = () => {
               className="flex flex-col items-center cursor-pointer"
             >
             <div
-              className="w-24 h-14 rounded-4xl flex items-center justify-center shadow-md bg-center bg-cover"
+              className="w-28 h-14 rounded-4xl flex items-center justify-center shadow-md bg-center bg-cover"
               style={{ backgroundImage: categoryBackgrounds[cat] || "url('BIG-BG.jpg')" }}
               >
             </div>
