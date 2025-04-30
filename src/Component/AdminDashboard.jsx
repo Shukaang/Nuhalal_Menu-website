@@ -6,6 +6,9 @@ import { deleteDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { FaHome, FaUtensils, FaBirthdayCake, FaGlassMartiniAlt } from "react-icons/fa";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { getAuth } from "firebase/auth";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 const categories = [
   "All Items",
@@ -54,44 +57,51 @@ export default function AdminDashboard() {
     useEffect(() => {
       fetchItems();
     }, []);
+
+    const auth = getAuth();
+const user = auth.currentUser;
+
+if (!user) {
+  alert("You need to log in to add items.");
+  return; // Stop the operation if the user is not authenticated
+}
   
-    const handleAddItem = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-      
-        try {
-          await addDoc(collection(db, "menuItems"), {
-            ...newItem,
-            imageUrl: imageUrl, // save the pasted URL
-          });
-      
-          setNewItem({ name: "", price: "", category: "" });
-          setImageUrl("");
-          setShowAddForm(false);
-          fetchItems(); // don't forget to reload items after adding
-        } catch (error) {
-          console.error("Error adding item:", error);
-          alert("Something went wrong!");
-        }
-      
-        setLoading(false);
-      };
+const handleAddItem = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+    await addDoc(collection(db, "menuItems"), {
+      ...newItem,
+      imageUrl: imageUrl,
+    });
+
+    setNewItem({ name: "", price: "", category: "" });
+    setImageUrl("");
+    setShowAddForm(false);
+    fetchItems(); // Reload items after adding
+  } catch (error) {
+    console.error("Error adding item:", error);
+    alert("Something went wrong!");
+  }
+
+  setLoading(false);
+};
       
   
-    const handleUpdateItem = async (e) => {
-      e.preventDefault();
-      try {
-        const itemDoc = doc(db, "menuItems", editingItem.id);
-        await updateDoc(itemDoc, {
-          name: editingItem.name,
-          price: editingItem.price,
-          category: editingItem.category,
-        });
+const handleUpdateItem = async (e) => {
+  e.preventDefault();
+  try {
+    const itemDoc = doc(db, "menuItems", editingItem.id);
+    await updateDoc(itemDoc, {
+      name: editingItem.name,
+      price: editingItem.price,
+      category: editingItem.category,
+    });
     
-        setEditingItem(null);
-        fetchItems();
+    setEditingItem(null);
+    fetchItems();
       } catch (error) {
-        console.error("Error updating item:", error);
         alert("Something went wrong!");
       }
     };
@@ -120,6 +130,12 @@ export default function AdminDashboard() {
           alert("Failed to delete the item!");
         }
       }
+    };
+
+    //handle Logout
+    const handleLogout = async () => {
+      await signOut(auth);
+      window.location.href = "/login";
     };
   
     const filteredItems = selectedCategory === "All Items"

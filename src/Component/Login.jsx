@@ -1,6 +1,6 @@
+import { auth } from "../firebase";
 import { useState } from "react";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export default function Login({ onLogin }) {
@@ -13,26 +13,17 @@ export default function Login({ onLogin }) {
     e.preventDefault();
     setError("");
 
+    const auth = getAuth();
+
     try {
-      const querySnapshot = await getDocs(collection(db, "adminID"));
-      let isValid = false;
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("Logged in user:", userCredential.user);
 
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        if (data.email === email && data.password === password) {
-          isValid = true;
-        }
-      });
-
-      if (isValid) {
-        onLogin();
-        navigate("/admin");
-      } else {
-        setError("Invalid credentials");
-      }
+      onLogin(); // Notify app that user is logged in
+      navigate("/admin"); // Redirect to admin panel
     } catch (err) {
-      console.error(err);
-      setError("Something went wrong");
+      console.error("Login error:", err);
+      setError("Invalid email or password.");
     }
   };
 
@@ -50,6 +41,7 @@ export default function Login({ onLogin }) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
         />
 
         <input
@@ -58,6 +50,7 @@ export default function Login({ onLogin }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          required
         />
 
         <button
