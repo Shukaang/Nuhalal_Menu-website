@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo} from 'react';
 import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import CategoryCard from './CategoryCard';
 
 const MainMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -11,7 +12,7 @@ const MainMenu = () => {
   const [loading, setLoading] = useState(true);
 
   const categoryBackgrounds = {
-    "Breakfast": "url(Breakfast.jpg)",
+  "Breakfast": "url(Breakfast.jpg)",
   "Burgers": "url(Burger.jpg)",
   "Pizza": "url(Pizza.jpg)",
   "Ethiopian Dishes": "url(Ethiopian.jpg)",
@@ -80,33 +81,22 @@ const MainMenu = () => {
       {/* Categories + Menu Items Section */}
       <div className="flex-1 p-6" style={{ backgroundImage: "url('BIG-BG.jpg')" }}>
         {/* Categories */}
-        <div className="flex flex-wrap justify-center gap-6 mb-8">
-        <div
-            onClick={resetFilter}
-            className="flex flex-col items-center cursor-pointer"
-          >
-            <div className="w-24 h-14 bg-contain bg-no-repeat bg-center rounded-4xl flex items-center justify-center shadow-md"
-                 style={{ backgroundImage: "url('BIG-BG.jpg')" }}
-                >
-            </div>
-            <p className="mt-2 text-sm font-medium">All Menu</p>
-          </div>
-          {categories.map((cat, index) => (
-            <div
-              key={index}
-              onClick={() => filterItems(cat)}
-              className="flex flex-col items-center cursor-pointer"
-            >
-            <div
-              className="w-24 h-14 rounded-4xl flex items-center justify-center shadow-md bg-center bg-cover"
-              style={{ backgroundImage: categoryBackgrounds[cat] || "url('BIG-BG.jpg')" }}
-              >
-            </div>
-              <p className="mt-2 text-sm font-medium">{cat}</p>
-            </div>
-          ))}
-          
-        </div>
+      <div className="flex flex-wrap justify-center gap-6 mb-8">
+        <CategoryCard
+           category="All Menu"
+           onClick={resetFilter}
+           imageUrl="url('BIG-BG.jpg')"
+        />
+
+      {categories.map((cat, index) => (
+        <CategoryCard
+        key={index}
+        category={cat}
+        onClick={filterItems}
+        imageUrl={categoryBackgrounds[cat] || "url('BIG-BG.jpg')"}
+        />
+        ))} 
+      </div>
 
         {/* Menu Items */}
         {loading ? (
