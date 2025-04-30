@@ -91,20 +91,33 @@ const handleAddItem = async (e) => {
   
 const handleUpdateItem = async (e) => {
   e.preventDefault();
+
   try {
     const itemDoc = doc(db, "menuItems", editingItem.id);
-    await updateDoc(itemDoc, {
+
+    // Only update the image URL if it has changed
+    const updatedData = {
       name: editingItem.name,
       price: editingItem.price,
       category: editingItem.category,
-    });
-    
-    setEditingItem(null);
-    fetchItems();
-      } catch (error) {
-        alert("Something went wrong!");
-      }
     };
+
+    // If imageUrl was updated, include it in the update
+    if (editingItem.imageUrl !== editingItem.existingImageUrl) {
+      updatedData.imageUrl = editingItem.imageUrl;
+    }
+
+    // Update the document with the modified fields
+    await updateDoc(itemDoc, updatedData);
+
+    setEditingItem(null); // Clear the form (you can choose to keep this if needed)
+    fetchItems(); // Reload items
+  } catch (error) {
+    console.error("Error updating item:", error);
+    alert("Something went wrong!");
+  }
+};
+
   
     // Open delete confirmation modal
     const openDeleteConfirmModal = (item) => {
