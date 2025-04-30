@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo} from 'react';
 import { db } from '../firebase';
-import { collection, limit, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 
 const MainMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [error, setError] = useState('');
   const [categories, setCategories] = useState([]);
+  const menuCollectionRef = collection(db, 'menuItems');
   const [loading, setLoading] = useState(true);
 
   const categoryBackgrounds = {
@@ -22,9 +23,8 @@ const MainMenu = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const q = query(collection(db, "menuItems"), limit(10));
       try {
-        const dataSnapshot = await getDocs(q);
+        const dataSnapshot = await getDocs(menuCollectionRef);
         const items = dataSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   
         if (items.length === 0) {
