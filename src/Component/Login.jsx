@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -11,22 +11,63 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/admin");
+      const querySnapshot = await getDocs(collection(db, "adminID"));
+      let isValid = false;
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.email === email && data.password === password) {
+          isValid = true;
+        }
+      });
+
+      if (isValid) {
+        onLogin();
+        navigate("/admin");
+      } else {
+        setError("Invalid credentials");
+      }
     } catch (err) {
-      setError("Invalid credentials");
+      console.error(err);
+      setError("Something went wrong");
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-96">
-        <h2 className="text-2xl mb-4 font-bold">Admin Login</h2>
-        {error && <p className="text-red-500">{error}</p>}
-        <input type="email" placeholder="Email" className="input" onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" className="input mt-2" onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 mt-4 w-full">Login</button>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form
+        onSubmit={handleLogin}
+        className="bg-white shadow-md rounded-xl px-8 pt-8 pb-10 w-full max-w-md"
+      >
+        <h2 className="text-2xl font-semibold text-center mb-6 text-gray-700">Admin Login</h2>
+
+        <input
+          type="email"
+          placeholder="Admin Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+        >
+          Login
+        </button>
+
+        {error && <p className="text-red-500 text-sm mt-4 text-center">{error}</p>}
       </form>
     </div>
   );
