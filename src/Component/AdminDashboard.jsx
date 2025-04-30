@@ -125,9 +125,6 @@ export default function AdminDashboard() {
     const filteredItems = selectedCategory === "All Items"
       ? menuItems
       : menuItems.filter(item => item.category === selectedCategory);
-
-      //Logout Handle
-      const handleLogout = () => signOut(auth);
   
     return (
       <div className="flex h-screen overflow-hidden">
