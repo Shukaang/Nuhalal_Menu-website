@@ -80,7 +80,7 @@ const MainMenu = () => {
       {/* Categories + Menu Items Section */}
       <div className="flex-1 p-6" style={{ backgroundImage: "url('BIG-BG.jpg')" }}>
         {/* Categories */}
-        <div className="flex flex-wrap justify-center gap-6 mb-8">
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
         <div
             onClick={resetFilter}
             className="flex flex-col items-center cursor-pointer"
