@@ -1,30 +1,30 @@
 import React, { useState, useEffect, useMemo} from 'react';
 import { db } from '../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, limit, getDocs } from 'firebase/firestore';
 
 const MainMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [error, setError] = useState('');
   const [categories, setCategories] = useState([]);
-  const menuCollectionRef = collection(db, 'menuItems');
   const [loading, setLoading] = useState(true);
 
   const categoryBackgrounds = {
-    "Breakfast & Brunch": "url(Breakfast.jpg)",
-  "Burgers & Sandwiches": "url(Burger.jpg)",
-  "Pizza & Fast Foods": "url(Pizza.jpg)",
+    "Breakfast": "url(Breakfast.jpg)",
+  "Burgers": "url(Burger.jpg)",
+  "Pizza": "url(Pizza.jpg)",
   "Ethiopian Dishes": "url(Ethiopian.jpg)",
   "Arabian Specials": "url(Arabian.jpg)",
-  "Salads & Healthy Picks": "url(Salad.jpg)",
-  "Desserts & Sweets": "url(Desert.jpg)",
-  "Juices & Hot Drinks": "url(Fruits.jpg)",
+  "Salads": "url(Salad.jpg)",
+  "Desserts": "url(Desert.jpg)",
+  "Beverages": "url(Fruits.jpg)",
   }
 
   useEffect(() => {
     const fetchData = async () => {
+      const q = query(collection(db, "menuItems"), limit(10));
       try {
-        const dataSnapshot = await getDocs(menuCollectionRef);
+        const dataSnapshot = await getDocs(q);
         const items = dataSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   
         if (items.length === 0) {
