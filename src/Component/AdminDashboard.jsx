@@ -379,6 +379,12 @@ const handleUpdateItem = async (e) => {
               </div>
             </div>
           )}
+          <button
+          onClick={handleLogout}
+          className="bg-slate-500 mt-8 cursor-pointer text-white px-4 py-2 rounded hover:bg-red-600"
+        >
+          Logout
+        </button>
         </main>
       </div>
     );

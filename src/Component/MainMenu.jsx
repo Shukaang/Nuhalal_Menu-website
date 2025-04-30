@@ -11,14 +11,14 @@ const MainMenu = () => {
   const [loading, setLoading] = useState(true);
 
   const categoryBackgrounds = {
-    "Breakfast & Brunch": "url(Breakfast.jpg)",
-  "Burgers & Sandwiches": "url(Burger.jpg)",
-  "Pizza & Fast Foods": "url(Pizza.jpg)",
+  "Breakfast": "url(Breakfast.jpg)",
+  "Burgers": "url(Burger.jpg)",
+  "Pizza": "url(Pizza.jpg)",
   "Ethiopian Dishes": "url(Ethiopian.jpg)",
   "Arabian Specials": "url(Arabian.jpg)",
-  "Salads & Healthy Picks": "url(Salad.jpg)",
-  "Desserts & Sweets": "url(Desert.jpg)",
-  "Juices & Hot Drinks": "url(Fruits.jpg)",
+  "Salads": "url(Salad.jpg)",
+  "Desserts": "url(Desert.jpg)",
+  "Beverages": "url(Fruits.jpg)",
   }
 
   useEffect(() => {
