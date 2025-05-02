@@ -18,7 +18,7 @@ const MainMenu = () => {
   "Arabian Specials": "url(Arabian.jpg)",
   "Salads": "url(Salad.jpg)",
   "Desserts": "url(Desert.jpg)",
-  "Beverages": "url(Fruits.jpg)",
+  "Beverages": "url(Beverages.jpg)",
   }
 
   useEffect(() => {
