@@ -170,8 +170,8 @@ const handleUpdateItem = async (e) => {
               <button
                 key={cat}
                 onClick={() => { setSelectedCategory(cat); setSidebarOpen(false); }}
-                className={`flex items-center gap-2 px-4 py-2 rounded 
-                  ${selectedCategory === cat ? "bg-gray-300 font-bold" : "text-gray-600 hover:bg-gray-200"}`}
+                className={`flex items-center gap-2 px-4 py-2 rounded whitespace-nowrap overflow-hidden text-ellipsis
+                  ${selectedCategory === cat ? "bg-gray-300 font-bold" : "text-gray-600 hover:bg-gray-200"}`}                
               >
                 {cat === "All Items" && <FaHome />}
                 {cat.includes("Breakfast") && <FaUtensils />}
@@ -181,7 +181,7 @@ const handleUpdateItem = async (e) => {
                 {cat.includes("Arabian") && <FaGlassMartiniAlt />}
                 {cat.includes("Salads") && <FaUtensils />}
                 {cat.includes("Desserts") && <FaBirthdayCake />}
-                {cat.includes("Juices") && <FaGlassMartiniAlt />}
+                {cat.includes("Beverages") && <FaGlassMartiniAlt />}
                 {cat}
               </button>
             ))}
@@ -224,12 +224,12 @@ const handleUpdateItem = async (e) => {
               <tbody>
                 {filteredItems.map(item => (
                   <tr key={item.id} className="border-b hover:bg-gray-50">
-                    <td className="py-3 flex gap-2 items-center">
+                    <td className="py-3 flex gap-2 items-center max-w-[160px] sm:max-w-full overflow-hidden">
                       {item.imageUrl && (
                         <img src={item.imageUrl} alt={item.name} className="w-10 h-10 object-cover rounded" />
-                      )}
-                      {item.name}
-                    </td>
+                        )}
+                        <span className="truncate block">{item.name}</span>
+                        </td>
                     <td className="py-3">{item.category}</td>
                     <td className="py-3">{item.price}</td>
                     <td className="py-3 flex items-center gap-2">
