@@ -80,16 +80,16 @@ const MainMenu = () => {
       {/* Categories + Menu Items Section */}
       <div className="flex-1 p-6" style={{ backgroundImage: "url('BIG-BG.jpg')" }}>
         {/* Categories */}
-        <div className="flex flex-wrap justify-center gap-4 lg:mt-5 mb-8">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:mt-5 mb-8">
           <div
             onClick={resetFilter}
             className="flex flex-col items-center cursor-pointer"
           >
-            <div className="w-24 h-14 bg-contain bg-no-repeat bg-center rounded-4xl flex items-center justify-center shadow-md"
+            <div className="w-20 sm:w-24 h-12 sm:h-14 bg-contain bg-no-repeat bg-center rounded-4xl flex items-center justify-center shadow-md"
                  style={{ backgroundImage: "url('BIG-BG.jpg')" }}
                 >
             </div>
-            <p className="mt-2 text-sm font-medium">All Menu</p>
+            <p className="mt-2 text-xs sm:text-sm font-medium">All Menu</p>
           </div>
           {categories.map((cat, index) => (
             <div
@@ -98,11 +98,11 @@ const MainMenu = () => {
               className="flex flex-col items-center cursor-pointer"
             >
             <div
-              className="w-28 h-14 rounded-4xl flex items-center justify-center shadow-md bg-center bg-cover"
+              className="w-24 sm:w-28 h-12 sm:h-14 rounded-4xl flex items-center justify-center shadow-md bg-center bg-cover"
               style={{ backgroundImage: categoryBackgrounds[cat] || "url('BIG-BG.jpg')" }}
               >
             </div>
-              <p className="mt-2 text-sm font-medium">{cat}</p>
+              <p className="mt-2 text-xs sm:text-sm font-medium">{cat}</p>
             </div>
           ))}
           
@@ -123,19 +123,19 @@ const MainMenu = () => {
               <div className="text-center text-gray-500">No items found.</div>
               ) : (
                 filteredItemsMemo.map((item) => (
-                  <div key={item.id} className="w-44 mx-0 bg-gray-950 p-4 border-2 border-green-700 rounded-xl shadow-2xl 
-                  shadow-green-800 hover:shadow-lg transition">
+                  <div key={item.id} className="w-40 sm:w-44 gap-2 bg-gray-950 p-4 border-2 border-green-700 rounded-xl shadow-2xl 
+                    shadow-green-800 hover:shadow-lg transition">
                     <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    loading= "lazy"
-                    className="w-full h-32 object-cover rounded-md mb-3"
+                      src={item.imageUrl}
+                      alt={item.name}
+                      loading= "lazy"
+                      className="w-full h-28 sm:h-32 object-cover rounded-md mb-3"
                     />
                     <div className="text-center">
-                    <h2 className="font-bold text-amber-600 text-lg">{item.name}</h2>
-                      <p className="text-white font-semibold mt-1">{item.price} ETB</p>
-                      </div>
+                      <h2 className="font-bold text-amber-600 text-base sm:text-lg">{item.name}</h2>
+                      <p className="text-white font-semibold mt-1 text-sm sm:text-base">{item.price} ETB</p>
                     </div>
+                  </div>
                 ))
               )}
 
