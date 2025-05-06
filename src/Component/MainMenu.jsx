@@ -72,7 +72,7 @@ const MainMenu = () => {
            style={{backgroundImage: "url('Menu-bg-Arabian.jpg')"}}
       >
         <h1 className="text-4xl font-bold text-black menu-title">Nuhalal Menu</h1>
-        <button className="bg-green-600 text-white font-bold px-6 py-2 rounded-lg shadow hover:bg-green-400 transition">
+        <button className="bg-amber-600 text-white font-bold px-6 py-2 rounded-lg shadow hover:bg-amber-400 transition">
           Order Now
         </button>
       </div>
@@ -111,7 +111,7 @@ const MainMenu = () => {
         {/* Menu Items */}
         {loading ? (
           <div className="flex justify-center items-center min-h-[40vh]">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-green-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-amber-600"></div>
           </div>
           ) : error ? (
             <div className="text-center text-red-500 text-3xl font-semibold">{error}</div>
