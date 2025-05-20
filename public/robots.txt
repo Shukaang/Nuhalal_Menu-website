@@ -1,0 +1,4 @@
+User-agent: *
+Allow
+
+Sitemap: https://nuhalal-menu.vercel.app/sitemap.xml
