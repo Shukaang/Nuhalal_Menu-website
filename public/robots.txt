@@ -1,4 +1,4 @@
 User-agent: *
-Allow
+Disallow
 
 Sitemap: https://nuhalal-menu.vercel.app/sitemap.xml
