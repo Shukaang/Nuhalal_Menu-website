@@ -408,7 +408,7 @@ export default function AdminDashboard() {
               {cat.includes("Burgers") && <FaUtensils />}
               {cat.includes("Pizza") && <FaUtensils />}
               {cat.includes("Ethiopian") && <FaUtensils />}
-              {cat.includes("Arabian") && <FaGlassMartiniAlt />}
+              {cat.includes("Arabian") && <FaUtensils />}
               {cat.includes("Salads") && <FaUtensils />}
               {cat.includes("Desserts") && <FaBirthdayCake />}
               {cat.includes("Beverages") && <FaGlassMartiniAlt />}
