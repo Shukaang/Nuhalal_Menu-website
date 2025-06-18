@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDTl_x_9QWEKG4z0iWN9GfD37KlWuFLdAk",
   authDomain: "menu-f22ad.firebaseapp.com",
   projectId: "menu-f22ad",
-  storageBucket: "menu-f22ad.appspot.com",
+  storageBucket: "gs://menu-f22ad.firebasestorage.app",
   messagingSenderId: "784436190787",
   appId: "1:784436190787:web:359140788fe659334cfef6"
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo} from 'react';
 import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const MainMenu = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -72,7 +73,7 @@ const MainMenu = () => {
            style={{backgroundImage: "url('Menu-bg-Arabian.jpg')"}}
       >
         <h1 className="text-4xl font-bold text-black menu-title">Nuhalal Menu</h1>
-        <button className="bg-amber-600 text-white font-bold px-6 py-2 rounded-lg shadow hover:bg-amber-400 transition">
+        <button className="bg-amber-600 text-white font-bold px-6 py-2 rounded-lg shadow hover:bg-amber-500 transition">
           Order Now
         </button>
       </div>
@@ -125,7 +126,7 @@ const MainMenu = () => {
                 filteredItemsMemo.map((item) => (
                   <div key={item.id} className="w-40 sm:w-44 gap-2 bg-gray-950 p-4 border-2 border-amber-600 rounded-xl shadow-2xl 
                     shadow-amber-600 hover:shadow-lg transition">
-                    <img
+                    <LazyLoadImage
                       src={item.imageUrl}
                       alt={item.name}
                       loading= "lazy"
