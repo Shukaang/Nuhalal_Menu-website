@@ -147,7 +147,7 @@ const MainMenu = () => {
       {/* Footer */}
       <footer className="bg-black text-white text-center space-y-3 p-4">
         <p className="text-sm">© 2025, Nuhalal Restaurant - Taste the Love!</p>
-        <p className="text-sm">© 2025, Khaled Salim contact Us @ +251916288190</p>
+        <p className="text-sm">© 2025, Shukang Tech contact Us @ +251991868812 <a href="https://shukang-tech.vercel.app">Send a message</a></p>
       </footer>
     </div>
   );
